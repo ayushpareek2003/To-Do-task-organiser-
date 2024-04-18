@@ -31,6 +31,11 @@ private:
 	void closeApp(wxCloseEvent& evt);
 
 	void taskLoader();
+
+	void editWallpaper(wxCloseEvent& evt);
+
+	
+
 	
 
 
@@ -40,6 +45,7 @@ private:
 	wxStaticText* headline;
 	wxTextCtrl* inputfield;
 	wxCheckListBox* checklistbox;
+	wxButton* editWb;
 
 
 

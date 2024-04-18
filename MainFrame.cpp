@@ -3,6 +3,8 @@
 #include <vector>
 #include <string>
 #include "Task.h"
+#include "Wallpaper_Update.h"
+
 
 
 
@@ -19,6 +21,9 @@ void MainFrame::groupHandlers()
 	inputfield->Bind(wxEVT_TEXT_ENTER, &MainFrame::enterTOadd, this);
 	checklistbox->Bind(wxEVT_KEY_DOWN, &MainFrame::selectTask, this);
 	clearB->Bind(wxEVT_BUTTON, &MainFrame::clearButton, this);
+	editWb->Bind(wxEVT_BUTTON, &MainFrame::editWallpaper, this);
+
+
 	this->Bind(wxEVT_CLOSE_WINDOW, &MainFrame::closeApp, this);
 
 
@@ -141,6 +146,15 @@ void MainFrame::taskLoader()
 
 }
 
+void MainFrame::editWallpaper(wxCloseEvent& evt)
+{
+
+
+
+}
+
+
+
 void MainFrame::removefromList()
 {
 	int index = checklistbox->GetSelection();
@@ -178,6 +192,7 @@ void MainFrame::createControls() {
 	checklistbox = new wxCheckListBox(panel, wxID_ANY, wxPoint(100, 120), wxSize(600, 400));
 	addB = new wxButton(panel, wxID_ANY,"Add", wxPoint(600, 80), wxSize(100, 35));
 	clearB = new wxButton(panel, wxID_ANY, "Clear", wxPoint(100, 525), wxSize(100, 35));
+	editWb = new wxButton(panel, wxID_ANY, "Add on Wallaper", wxPoint(500, 525), wxSize(200,35));
 
 }
 
