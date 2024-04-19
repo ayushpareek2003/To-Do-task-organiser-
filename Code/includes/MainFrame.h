@@ -1,11 +1,22 @@
 #pragma once
 #include <wx/wx.h>
+#include <filesystem>
+#include <vector>
+#include <string>
+#include "Task.h"
+#include "Wallpaper_Update.h"
+#include <iostream>
+#include <opencv2/opencv.hpp> 
+#include <opencv2/highgui/highgui.hpp>
 
 class MainFrame:public wxFrame
 {
 public:
 
 	MainFrame(const wxString& title);
+
+	cv::Mat nitial_wallpaper;
+	
 
 
 private:
@@ -32,20 +43,30 @@ private:
 
 	void taskLoader();
 
-	void editWallpaper(wxCloseEvent& evt);
+	void wallapaper_edit(wxCommandEvent& evt);
+
+	void changeWallpaper(wxCommandEvent& evt);
+
+	void createSTORAGE();
+	
+	void restoreWallpaper(wxCommandEvent& evt);
+
+
 
 	
-
-	
-
 
 	wxButton* clearB;
 	wxButton* addB;
+	wxButton* editWb;
+	wxButton* wallpaperCHANGE;
+	wxButton* oldWallpaper;
 	wxPanel* panel;
 	wxStaticText* headline;
 	wxTextCtrl* inputfield;
 	wxCheckListBox* checklistbox;
-	wxButton* editWb;
+
+	
+	
 
 
 

@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <fstream>
 
+
 void save(const std::vector<Task>& tasks, const std::string& filename)
 {
 	std::ofstream ostream(filename);

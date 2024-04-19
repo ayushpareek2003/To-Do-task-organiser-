@@ -4,6 +4,9 @@
 #include <string>
 #include "Task.h"
 #include "Wallpaper_Update.h"
+#include <iostream>
+#include <opencv2/opencv.hpp> 
+#include <opencv2/highgui/highgui.hpp>
 
 
 
@@ -12,6 +15,9 @@ MainFrame::MainFrame(const wxString& title) :wxFrame(nullptr, wxID_ANY, title) {
 	createControls();
 	groupHandlers();
 	taskLoader();
+	createSTORAGE();
+
+
 
 }
 
@@ -21,10 +27,14 @@ void MainFrame::groupHandlers()
 	inputfield->Bind(wxEVT_TEXT_ENTER, &MainFrame::enterTOadd, this);
 	checklistbox->Bind(wxEVT_KEY_DOWN, &MainFrame::selectTask, this);
 	clearB->Bind(wxEVT_BUTTON, &MainFrame::clearButton, this);
-	editWb->Bind(wxEVT_BUTTON, &MainFrame::editWallpaper, this);
+	editWb->Bind(wxEVT_BUTTON, &MainFrame::wallapaper_edit, this);
+	oldWallpaper->Bind(wxEVT_BUTTON, &MainFrame::restoreWallpaper, this);
+
+	
 
 
 	this->Bind(wxEVT_CLOSE_WINDOW, &MainFrame::closeApp, this);
+
 
 
 }
@@ -127,7 +137,7 @@ void MainFrame::closeApp(wxCloseEvent& evt)
 		temp.done = checklistbox->IsChecked(y);
 		Data.push_back(temp);
 	}
-	save(Data, "Task.txt");
+	save(Data, "C:/To-Do/Task.txt");
 	evt.Skip();
 
 
@@ -135,7 +145,7 @@ void MainFrame::closeApp(wxCloseEvent& evt)
 
 void MainFrame::taskLoader()
 {
-	std::vector<Task> Data = load("Task.txt");
+	std::vector<Task> Data = load("c:/To-DO/Task.txt");
 
 	for (const Task& task:Data) {
 		int index = checklistbox->GetCount();
@@ -146,12 +156,68 @@ void MainFrame::taskLoader()
 
 }
 
-void MainFrame::editWallpaper(wxCloseEvent& evt)
+void MainFrame::wallapaper_edit(wxCommandEvent& evt)
 {
+
+	std::vector<std::string> storing_data_to_add;
+
+	for (int i = 0; i < checklistbox->GetCount(); i++) {
+		std::string temp_task = checklistbox->GetString(i).ToStdString();
+		storing_data_to_add.push_back(temp_task);
+
+	}
+
+	std::string edited_wallpaper_path = editing_Wallpaper(storing_data_to_add);
+	
+	 
+}
+
+void MainFrame::createSTORAGE()
+{
+	std::string folderName = "c:/To-DO";
+
+	
+	if (!std::filesystem::exists(folderName)) {
+		std::filesystem::create_directory(folderName);
+		
+		
+	}
+	if (!std::filesystem::exists("c:/To-Do/Temp")) {
+		std::filesystem::create_directory("c:/To-Do/Temp");
+
+	}
+
+
+	extract_path();
+	
+
+	
+	
+
+	
+	
+
+	
+
+	
+
+}
+
+void MainFrame::restoreWallpaper(wxCommandEvent& evt)
+{
+
+	std::string path = "c:/To-Do/Initial_wallpaper.png";
+	bool result = set_wallpaper(path);
+
 
 
 
 }
+
+
+
+
+
 
 
 
@@ -170,10 +236,6 @@ void MainFrame::removefromList()
 	if (index!=-1) {
 		checklistbox->SetSelection(index);
 	}
-	
-
-
-
 }
 
 
@@ -192,7 +254,11 @@ void MainFrame::createControls() {
 	checklistbox = new wxCheckListBox(panel, wxID_ANY, wxPoint(100, 120), wxSize(600, 400));
 	addB = new wxButton(panel, wxID_ANY,"Add", wxPoint(600, 80), wxSize(100, 35));
 	clearB = new wxButton(panel, wxID_ANY, "Clear", wxPoint(100, 525), wxSize(100, 35));
-	editWb = new wxButton(panel, wxID_ANY, "Add on Wallaper", wxPoint(500, 525), wxSize(200,35));
+	editWb = new wxButton(panel, wxID_ANY, "Add on Wallpaper", wxPoint(500, 525), wxSize(210, 35));
+	oldWallpaper = new wxButton(panel, wxID_ANY, "Restore Wallpaper", wxPoint(250, 525), wxSize(220, 35));
+
+
+
 
 }
 
