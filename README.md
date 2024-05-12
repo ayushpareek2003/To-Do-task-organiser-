@@ -1,6 +1,5 @@
 Make sure to include opencv_world490dd.dll in the same folder, to run this application 
 
-Link to sample run video of this project- https://drive.google.com/file/d/1MwtbzWbbFaqiOeg-OfVT_qK0r8xz7SV_/view?usp=sharing
 
 This project is a simple to-do task organizer implemented in C++ using the wxWidgets library. It provides a graphical user interface (GUI) for users to manage their daily tasks efficiently.
 
